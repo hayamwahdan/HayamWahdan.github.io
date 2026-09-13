@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Road Accident Severity Prediction | Hayam Wahdan</title>
+<meta name="description" content="Case study: predicting road accident severity with Random Forest and SMOTE, focused on handling severe class imbalance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="nav-mark" href="../index.html">hayam<strong>.</strong>wahdan</a>
+    <nav class="nav-links" style="display:flex; position:static; padding:0; border:0;" aria-label="Primary">
+      <a href="../index.html#projects">All projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="cs-hero">
+    <div class="wrap">
+      <a class="cs-back" href="../index.html#projects">← Back to projects</a>
+      <p class="section-label">project</p>
+      <h1>Road Accident Severity Prediction</h1>
+      <p class="cs-subtitle">Predicting accident severity while handling severe class imbalance</p>
+      <div class="cs-meta-row">
+        <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span class="tag">Random Forest</span><span class="tag">SMOTE</span>
+      </div>
+      <div class="cs-links">
+        <a class="btn btn-primary" href="https://github.com/hayamwahdan/Road-Accident-Severity-Prediction" target="_blank" rel="noopener">GitHub Repository</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">overview</p>
+      <div class="cs-section-body">
+        <p>An end-to-end data science project predicting road accident severity using Random Forest and SMOTE. The project focuses on handling class imbalance while building a machine learning pipeline for accident-severity prediction.</p>
+      <div class="cs-screenshot"><img src="../assets/images/road-accident-severity.png" alt="Bar chart of accident severity distribution: 263,271 slight, 40,739 serious, 3,953 fatal incidents"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">problem</p>
+      <div class="cs-section-body">
+        <p>Road accident data is typically dominated by low-severity incidents, making severe cases hard for a model to learn — the project centers on this class imbalance problem.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">approach</p>
+      <div class="cs-section-body">
+        <p>Uses SMOTE to balance the training data and a Random Forest classifier to predict severity, building a full pipeline from raw data to prediction.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">data</p>
+      <div class="cs-section-body">
+        <p>The target variable — accident severity — is heavily imbalanced: 263,271 "Slight" incidents against 40,739 "Serious" and just 3,953 "Fatal" cases, which is why SMOTE resampling was necessary before training.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">technical work</p>
+      <div class="cs-section-body">
+        <p>Built in Python with Pandas for data handling and Scikit-learn for the Random Forest model and SMOTE resampling.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">results / insights</p>
+      <div class="cs-section-body">
+        <div class="cs-placeholder">To be added — quantified model performance will be expanded here.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">business value</p>
+      <div class="cs-section-body">
+        <div class="cs-placeholder">To be added — applied/business value will be expanded here.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">technologies</p>
+      <div class="cs-section-body">
+        <div class="cs-tech-tags">
+        <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span class="tag">Random Forest</span><span class="tag">SMOTE</span>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">links</p>
+      <div class="cs-section-body">
+        <div class="cs-links" style="margin-top:0;">
+        <a class="pf-link" href="https://github.com/hayamwahdan/Road-Accident-Severity-Prediction" target="_blank" rel="noopener">GitHub Repository</a>
+      </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="foot-tag">Data → Insight → Action</p>
+    <p class="foot-copy">© <span id="year"></span> Hayam Wahdan</p>
+  </div>
+</footer>
+<script src="../script.js"></script>
+</body>
+</html>

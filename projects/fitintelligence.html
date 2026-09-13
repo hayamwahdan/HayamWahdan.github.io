@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitIntelligence — Body Performance Analytics | Hayam Wahdan</title>
+<meta name="description" content="Case study: FitIntelligence, a body performance analytics and intelligent classification system comparing five machine learning models for fitness classification and explosive-power regression.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="nav-mark" href="../index.html">hayam<strong>.</strong>wahdan</a>
+    <nav class="nav-links" style="display:flex; position:static; padding:0; border:0;" aria-label="Primary">
+      <a href="../index.html#projects">All projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="cs-hero">
+    <div class="wrap">
+      <a class="cs-back" href="../index.html#projects">← Back to projects</a>
+      <p class="section-label">featured project — 03</p>
+      <h1>FitIntelligence</h1>
+      <p class="cs-subtitle">Body Performance Analytics and Intelligent Classification System</p>
+      <div class="cs-meta-row">
+        <span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">TensorFlow / Keras</span><span class="tag">Decision Trees</span><span class="tag">Neural Networks</span>
+      </div>
+      <div class="cs-links">
+        <a class="btn btn-primary" href="https://github.com/Digi-Deepora-Team/FitIntelligence-System" target="_blank" rel="noopener">GitHub Repository</a>
+      </div>
+      <p class="cs-note">Course project for "Introduction to Artificial Intelligence and Machine Learning," submitted to Dr. Mohamed Elhaddad (29 March 2026). Built by a five-person team — Hayam Medhat Wahdan (Team Leader — Decision Tree model, report, and model system), Hoda Mohamed Ezzat (KNN, presentation), Nada Fahmy Fahmy (SVM), Esraa Mohamed Attia (EDA, Linear Regression), and Esraa Shawky Mahmoud (Neural Network).</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">overview</p>
+      <div class="cs-section-body">
+        <p>FitIntelligence documents the complete lifecycle of a machine learning project applied to the public Body Performance Dataset: data understanding, preprocessing, exploratory analysis, model training, validation, and performance evaluation. The dataset describes physical fitness indicators — age, gender, body composition, blood pressure, grip strength, flexibility, and muscular endurance — and the team built models for both a classification task (fitness performance category) and a regression task (explosive leg power).</p>
+        <div class="cs-screenshot"><img src="../assets/images/fitintelligence-accuracy.png" alt="Bar chart comparing classification model accuracy: Neural Network 76.38%, SVM (RBF) 69.39%, Decision Tree 64.80%, KNN 64.52%"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">business problem</p>
+      <div class="cs-section-body">
+        <p>Reliably classifying a person's fitness performance level and estimating a physical performance metric from routine biometric measurements requires a rigorous ML workflow — the dataset alone contains data-quality issues (physiologically impossible readings, duplicates, outliers) that need to be resolved before any model can be trusted.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">objective</p>
+      <div class="cs-section-body">
+        <p>Build and compare five machine learning models — KNN, Linear Regression, Decision Tree, SVM, and a Neural Network — on both a classification task (predicting performance class A–D) and a regression task (predicting broad jump distance, a measure of explosive power), each evaluated across three train/test splits and 5-fold cross-validation, then recommend the best model for each task.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">dataset</p>
+      <div class="cs-section-body">
+        <p>The Body Performance Dataset (bodyPerformance.csv) contains <strong>13,393 rows and 12 columns</strong> before cleaning: age, gender, height, weight, body fat %, diastolic/systolic blood pressure, grip force, sit-and-reach flexibility, sit-up count, broad jump distance, and a performance class label (A = best, D = weakest). <code>broad jump_cm</code> is the regression target; <code>class</code> is the classification target.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">data preparation</p>
+      <div class="cs-section-body">
+        <p>Domain-specific validity rules flagged physiologically impossible values (e.g. body fat outside 5–60%, blood pressure outside medical ranges, non-positive grip force) as missing, affecting under 1% of rows in every affected column; these were dropped rather than imputed, since imputing physiological measurements risked introducing bias. Duplicate rows were removed. Outliers were assessed with both the IQR method and a 3-standard-deviation rule, with keep/remove decisions made on domain grounds — for example, high sit-up counts were kept as plausible elite-athlete values, while near-zero grip-force readings were removed as instrument error.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">exploratory analysis</p>
+      <div class="cs-section-body">
+        <p>Most features were approximately normally distributed; age was right-skewed toward younger participants, and flexibility (sit-and-reach) was left-skewed due to participants unable to reach the floor. Grip force, sit-ups, and broad jump were strongly inter-correlated, suggesting a single latent fitness dimension — which motivated engineering a composite <code>total_fitness</code> feature. Body fat percentage was the strongest single negative predictor across every performance metric. The classification boundary between adjacent classes B and C was diffuse across every model tested, the primary source of misclassification.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">features / variables</p>
+      <div class="cs-section-body">
+        <p>Engineered features included BMI, pulse pressure (systolic − diastolic), grip-to-bodyfat ratio, the composite <code>total_fitness</code> score, age-interaction terms for grip and jump performance, and an ordinal age-group encoding, alongside log-transforms of 12 skewed columns. By mutual-information score, flexibility and sit-up count were the strongest individual predictors of performance class, while the composite <code>total_fitness</code> feature dominated the regression task.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">models used</p>
+      <div class="cs-section-body">
+        <p>All five required models were implemented for both tasks: <strong>K-Nearest Neighbors</strong> (with PCA and GridSearchCV tuning), <strong>Linear Regression</strong> (regression only, OLS), <strong>Decision Tree</strong> (max-depth tuned via train/test curves), <strong>Support Vector Machine</strong> (RBF and linear kernels), and a <strong>Neural Network</strong> (2 hidden layers, BatchNormalization and Dropout, Keras for classification / MLPRegressor for regression). Each was evaluated across 80:20, 70:30, and 50:50 splits plus 5-fold cross-validation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">model evaluation</p>
+      <div class="cs-section-body">
+        <p>On the 80:20 split, the <strong>Neural Network was the strongest classifier at 76.33% accuracy</strong>, ahead of an XGBoost ensemble (72.66%), SVM–RBF (~72.5%), SVM–Linear (~70.0%), Decision Tree (65.46%), and KNN (65.15%). For regression, the <strong>Decision Tree Regressor was the strongest model at R² = 0.9684 (RMSE = 6.98 cm)</strong>, ahead of SVR–RBF (R² ≈ 0.94), KNN Regression (R² = 0.79), the Neural Network regressor (R² ≈ 0.78), and Linear Regression (R² ≈ 0.72).</p>
+        <table class="cs-mini-table">
+          <tr><th>Model</th><th>Classification accuracy</th><th>Regression R²</th></tr>
+          <tr><td>Neural Network</td><td>76.33%</td><td>0.7848</td></tr>
+          <tr><td>Decision Tree</td><td>65.46%</td><td>0.9684 (best)</td></tr>
+          <tr><td>SVM (RBF)</td><td>~72.5%</td><td>~0.940</td></tr>
+          <tr><td>KNN</td><td>65.15%</td><td>0.7910</td></tr>
+          <tr><td>Linear Regression</td><td>—</td><td>~0.720</td></tr>
+        </table>
+        <p class="cs-note">The report's own summary chart above (from its final visualizations section) rounds these to slightly different figures — Neural Network 76.38%, SVM (RBF) 69.39%, Decision Tree 64.80%, KNN 64.52% — a minor inconsistency between two tables in the original report, reproduced here as published rather than resolved.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">key findings</p>
+      <div class="cs-section-body">
+        <p>Flexibility and core endurance (sit-and-reach and sit-up count) together account for over 53% of the Decision Tree classifier's decision-making power. The composite <code>total_fitness</code> feature carries 94.3% of the Decision Tree regressor's feature importance, almost entirely driving its near-perfect jump-distance predictions. The B↔C classification boundary is the universal challenge across every model, consistent with overlapping biometric profiles between adjacent fitness classes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">business / practical value</p>
+      <div class="cs-section-body">
+        <p>The report recommends deploying the Neural Network for a fitness-classification tool and the Decision Tree Regressor for a broad-jump prediction tool, given its interpretability, computational efficiency, and RMSE under 7 cm. Future work identified in the report includes collecting additional features (e.g. VO2 max, training history) to improve the B/C classification boundary and addressing class imbalance with SMOTE.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">technologies</p>
+      <div class="cs-section-body">
+        <div class="cs-tech-tags">
+          <span class="tag">Python</span><span class="tag">Scikit-learn</span><span class="tag">TensorFlow / Keras</span><span class="tag">Pandas</span><span class="tag">Google Colab</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">links</p>
+      <div class="cs-section-body">
+        <div class="cs-links" style="margin-top:0;">
+          <a class="pf-link" href="https://github.com/Digi-Deepora-Team/FitIntelligence-System" target="_blank" rel="noopener">GitHub Repository</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="foot-tag">Data → Insight → Action</p>
+    <p class="foot-copy">© <span id="year"></span> Hayam Wahdan</p>
+  </div>
+</footer>
+<script src="../script.js"></script>
+</body>
+</html>

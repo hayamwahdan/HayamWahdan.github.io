@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VENTORA — AI-Driven Smart Inventory Analytics System | Hayam Wahdan</title>
+<meta name="description" content="Case study: VENTORA, an AI-driven smart inventory analytics system for predicting product expiry and reducing inventory waste risk, built on the M5 retail dataset and USDA FoodKeeper data.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-nav">
+  <div class="wrap">
+    <a class="nav-mark" href="../index.html">hayam<strong>.</strong>wahdan</a>
+    <nav class="nav-links" style="display:flex; position:static; padding:0; border:0;" aria-label="Primary">
+      <a href="../index.html#projects">All projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="cs-hero">
+    <div class="wrap">
+      <a class="cs-back" href="../index.html#projects">← Back to projects</a>
+      <p class="section-label">featured project — 01</p>
+      <h1>VENTORA</h1>
+      <p class="cs-subtitle">AI-Driven Smart Inventory Analytics System for Predicting Product Expiry and Reducing Inventory Waste Risk</p>
+      <div class="cs-meta-row">
+        <span class="tag">Python</span><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">Streamlit</span><span class="tag">FastAPI</span><span class="tag">React / TypeScript</span>
+      </div>
+      <div class="cs-links">
+        <a class="btn btn-primary" href="https://github.com/digilians-hnh/VENTORA" target="_blank" rel="noopener">GitHub Repository</a>
+        <a class="btn btn-outline" href="https://ventora.onrender.com/" target="_blank" rel="noopener">Open Live Dashboard ↗</a>
+      </div>
+      <p class="cs-note">Graduation project for the Professional Diploma in Applied AI and Data Analytics, Digilians MCIT Digital Pioneers Initiative, submitted to the Military Technical College under the supervision of Dr. Aly Khalifa (August 2026). Built by a three-person team — Hoda Mohamed Ezzat Elhamahmy, Nada Fahmy Fahmy Altohamy, and Hayam Medhat Ahmed Wahdan. Hayam's role: AI Solution Integration &amp; Deployment — model integration, the Inventory Risk Engine, the Recommendation Engine, the business-value simulation, the dashboard/web application, and deployment validation &amp; testing.</p>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">overview</p>
+      <div class="cs-section-body">
+        <p>Food retailers routinely lose sellable inventory to spoilage because perishable products carry a fixed shelf life while replenishment and sales decisions are typically made without an explicit, item-level estimate of expiry risk. VENTORA is a decision-support pipeline that connects demand forecasting, spoilage classification, and business-value simulation into a single batch-level risk and recommendation workflow for perishable grocery inventory.</p>
+        <p>The narrative running through the system is <strong>Predict → Prioritize → Recommend → Measure Impact</strong>: demand and spoilage are predicted at the batch level, batches are ranked by a composite risk score, high-risk batches are mapped to a concrete recommended action, and the potential impact of acting on those recommendations is estimated through simulation against an observed baseline.</p>
+        <div class="cs-screenshot"><img src="../assets/images/ventora-hero.png" alt="VENTORA app screen: AI-Driven Inventory Intelligence with buttons to explore inventory risk and view business impact"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">business problem</p>
+      <div class="cs-section-body">
+        <p>Perishable categories — fresh produce, dairy, bakery, prepared foods — make up a disproportionate share of retail waste because every unit carries an implicit deadline. Most retailers manage this with FIFO or FEFO shelving discipline and periodic, rule-of-thumb replenishment: reactive policies that determine the order stock is sold in, but never tell a manager in advance how much of a given batch is likely to go to waste, or which batches most urgently need a discount, redistribution, or a smaller next order.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">objective</p>
+      <div class="cs-section-body">
+        <p>Combine a demand signal, shelf-life data, and current inventory into one operationally interpretable batch-level risk score, then convert that score into a concrete recommendation and an estimate of the business value of acting on it. Concretely, the project set out to: reconstruct a realistic batch-level view of perishable inventory from real sales data; build and evaluate a demand forecasting model and a spoilage classification model; combine both into an Inventory Risk Engine; translate risk into recommendations through a rule-based engine; quantify potential waste reduction through a business-value simulation; and present it all through an interactive dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">data / dataset</p>
+      <div class="cs-section-body">
+        <p>The system combines two public sources: the <strong>M5 Forecasting</strong> retail sales dataset (Walmart, FOODS category, store CA_1 in California) for daily unit sales, calendar events, and pricing, and the <strong>USDA FoodKeeper</strong> database for category-level shelf-life reference values.</p>
+        <p>Neither source records inventory batches or spoilage outcomes directly, so batch-level receipts, expiry dates, and waste outcomes were <strong>deterministically reconstructed</strong>: a periodic order-up-to replenishment policy combined with FIFO consumption was applied to the real daily sales series, generating 969,106 reconstructed rows overall and a <strong>35,165-batch</strong> evaluation population after a chronological train/test split with an expiry embargo to prevent look-ahead leakage.</p>
+        <table class="cs-mini-table">
+          <tr><th>Source</th><th>Content</th><th>Scope used</th></tr>
+          <tr><td>M5 Forecasting (Walmart)</td><td>Daily unit sales, calendar events, SNAP status, prices</td><td>FOODS category, store CA_1 — 1,437 item-store series</td></tr>
+          <tr><td>USDA FoodKeeper</td><td>Shelf-life reference values by food category</td><td>FOODS_1 / FOODS_2 / FOODS_3 mapping</td></tr>
+          <tr><td>Reconstructed batch table</td><td>Receipts, expiry dates, waste outcomes</td><td>969,106 rows → 35,165 evaluation batches</td></tr>
+        </table>
+        <p class="cs-note">This is public U.S. retail data, not Egyptian or regional retail data — the report explicitly names this as a limitation and identifies local validation on Egyptian data as future work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">methodology / approach</p>
+      <div class="cs-section-body">
+        <p>Two independently trained models feed a shared decision layer. An <strong>XGBoost</strong> regressor forecasts category-daily demand (lag, rolling-mean, and calendar features), which is allocated to individual items by their historical share of category demand. A <strong>LightGBM</strong> classifier estimates each batch's probability of being discarded before expiry, using shelf life, receipt-time demand and volatility signals, and promotional/calendar context. Both models were evaluated on a chronological train/test split with an expiry embargo, and both were frozen after evaluation so the downstream Risk Engine, Recommendation Engine, and simulation could be built against fixed, known model outputs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">data preparation</p>
+      <div class="cs-section-body">
+        <p>Raw sales, calendar, and price tables were merged into an item-daily table with trailing-window demand features (7-day and 28-day means, 28-day demand coefficient of variation) computed strictly from data before each batch's received date to avoid leakage. Two safeguards prevented look-ahead: all trailing features used a shift(1) window, and an expiry embargo excluded any batch whose evaluation window straddled the train/test cutoff (7,910 batches discarded for this reason).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">analysis</p>
+      <div class="cs-section-body">
+        <p>Exploratory analysis of the reconstructed batch population found that waste is concentrated in a minority of batches rather than spread evenly, that spoilage incidence varies by category and shelf-life length, and that items with more volatile short-term demand (measured by the 28-day demand coefficient of variation) are harder to size a fixed replenishment order for — and correspondingly more likely to end up in excess. These findings directly motivated using category, shelf life, and demand volatility as features in the spoilage model rather than relying on item identity alone.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">modeling / forecasting</p>
+      <div class="cs-section-body">
+        <p>The demand forecasting model (XGBoost, 300 estimators, learning rate 0.05, max depth 4) achieved <strong>MAE = 86.59, RMSE = 140.30, MAPE = 10.82%</strong> on a chronologically held-out test period. The spoilage classification model (LightGBM, 500 estimators, learning rate 0.1, max depth 6, with a tuned 0.40 decision threshold to favor recall over precision given the cost of missing an at-risk batch) achieved <strong>ROC-AUC = 0.825, PR-AUC = 0.759, F1 = 0.678</strong> (precision 0.674, recall 0.682) under the leakage-controlled, expiry-embargoed split.</p>
+        <div class="cs-stat-row">
+          <span class="cs-stat">Demand MAE 86.59</span>
+          <span class="cs-stat">Demand MAPE 10.82%</span>
+          <span class="cs-stat">Spoilage ROC-AUC 0.825</span>
+          <span class="cs-stat">Spoilage F1 0.678</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">inventory risk assessment</p>
+      <div class="cs-section-body">
+        <p>Neither model alone tells a manager how much inventory is actually exposed to loss. The <strong>Inventory Risk Engine</strong> combines the spoilage probability with a demand-derived "potential excess inventory" figure into an <strong>Expected Waste Exposure</strong> value, which is converted to a 0–100 <strong>Risk Score</strong> and discretized into four Risk Levels (LOW / MEDIUM / HIGH / CRITICAL).</p>
+        <p>The engine's validation check is whether real, realized spoilage rate rises with assigned risk level — and it does, monotonically, across the 35,165-batch evaluation population:</p>
+        <table class="cs-mini-table">
+          <tr><th>Risk level</th><th>Share of batches</th><th>Actual spoilage rate</th></tr>
+          <tr><td>LOW</td><td>71.9% (25,285 batches)</td><td>31.5%</td></tr>
+          <tr><td>MEDIUM</td><td>9.4% (3,293 batches)</td><td>36.7%</td></tr>
+          <tr><td>HIGH</td><td>9.4% (3,293 batches)</td><td>48.2%</td></tr>
+          <tr><td>CRITICAL</td><td>9.4% (3,294 batches)</td><td>64.7%</td></tr>
+        </table>
+        <p>A deterministic, rule-based <strong>Recommendation Engine</strong> then maps each risk level to a concrete action — urgent discount or redistribution for CRITICAL/HIGH batches with measurable excess inventory, a smaller next replenishment order for MEDIUM batches, and normal management for LOW batches — with no fitted parameters, so every recommendation is auditable.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">key results / findings</p>
+      <div class="cs-section-body">
+        <p>Over the evaluation population, the FIFO/FEFO no-intervention baseline totals <strong>36,448 waste units</strong> against 212,334 units received (a 36.6% batch-level spoilage rate). The HIGH and CRITICAL tiers — just 18.7% of batches (6,587) — concentrate a disproportionate share of that waste, which is the evidence that the Risk Score is a meaningful prioritization signal rather than an arbitrary one.</p>
+        <p>Under three literature-grounded intervention scenarios, a business-value simulation estimates waste reduction of <strong>12.9% (Conservative)</strong>, <strong>22.5% (Base)</strong>, and <strong>30.1% (Optimistic)</strong> relative to that baseline. These figures are explicitly simulated under documented assumptions, not a measured, real-world outcome — no live pilot was conducted.</p>
+        <div class="cs-stat-row">
+          <span class="cs-stat">36,448 baseline waste units</span>
+          <span class="cs-stat">6,587 HIGH/CRITICAL batches</span>
+          <span class="cs-stat">31.5% → 64.7% spoilage rate by tier</span>
+          <span class="cs-stat">22.5% simulated waste reduction (Base)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">business value / decision support</p>
+      <div class="cs-section-body">
+        <p>The full pipeline is presented through two Streamlit interfaces built on the same frozen artifacts: a read-only analytics dashboard (Executive Overview, Risk Explorer, Business Impact, Recommendations) and a company-facing VENTORA web application that adds a Home page and a data-input workflow, including an "Advanced" mode that can run the frozen models directly when uploaded data already contains the required engineered features. The recommended manager workflow moves from Executive Overview (how much is at risk today) to Risk Explorer (which batches) to Recommendations (what to do) to Business Impact (what it could be worth).</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">technologies</p>
+      <div class="cs-section-body">
+        <div class="cs-tech-tags">
+          <span class="tag">Python</span><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">pandas</span><span class="tag">SHAP</span><span class="tag">Streamlit</span><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">TypeScript</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-section">
+    <div class="wrap">
+      <p class="section-label">links</p>
+      <div class="cs-section-body">
+        <div class="cs-links" style="margin-top:0;">
+          <a class="pf-link" href="https://github.com/digilians-hnh/VENTORA" target="_blank" rel="noopener">GitHub Repository</a>
+          <a class="pf-link live" href="https://ventora.onrender.com/" target="_blank" rel="noopener">Live Dashboard ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="foot-tag">Data → Insight → Action</p>
+    <p class="foot-copy">© <span id="year"></span> Hayam Wahdan</p>
+  </div>
+</footer>
+<script src="../script.js"></script>
+</body>
+</html>
